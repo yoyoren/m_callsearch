@@ -1,0 +1,189 @@
+{if $full_page}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>订单查询</title>
+<link href="styles/Layer.css" rel="stylesheet" type="text/css" />
+<link href="styles/Render.css" rel="stylesheet" type="text/css" />
+{insert_scripts files="common.js,transport.js,utils.js,listtable.js,datepicker/WdatePicker.js"}
+</head>
+<body>
+<div class="page">
+<fieldset>
+<legend>订单查询</legend>
+<form  action="javascript:searchOrder()" name="searchForm" method="POST" onsubmit="return true">
+<p>送货日期<input name="sdate" type="text" onFocus="javascript:WdatePicker()" style="width:70px"/>-<input name="edate"  type="text" onFocus="javascript:WdatePicker()" style="width:70px"/>
+订单号<input type="text" name="order_sn" style="width:80px" />
+订购人<input type="text" name="orderman" style="width:60px" />
+订购电话<input type="text" name="tel" style="width:80px" />
+收货人<input type="text" name="consignee" value="" style="width:60px"/>
+收货电话<input type="text" name="tel2" style="width:80px" />
+<input type="submit" id="btn" value="搜索" />&nbsp;&nbsp;<a id="onbtn" onclick="show_div()"><b>展开搜索项</b></a>
+<a id="offbtn" style="display:none;" onclick="javasrcipt:hide_div()"><b>隐藏搜索项</b></a></p>
+<hr />
+<p id="searchs" style="display:none;"><br />
+下单日期<input type="text" name="sdatead" onfocus="javascript:WdatePicker()" style="width:70px" />-<input name="edatead"  type="text" onFocus="javascript:WdatePicker()" style="width:70px"/>
+订单备注<input type="text" name="referer" size="14">
+生产提示<input type="text" name="scts" id="scts" size="14">
+外送提示<input type="text" name="wsts" id="wsts" size="14">
+客服备注<input type="text" name="to_buyer" size="14"><br /><br />
+批次 <select id="turn" name="turn">
+                <option value="">全部</option>
+                <option value="-1">1</option>
+                <option value="-2">2</option>
+                <option value="-3">3</option>
+                <option value="-4">4</option>
+			</select>
+配送站<select id="station" name="station">
+            	<option value="">全部</option>
+                {html_options options=$station}           
+            </select>  
+订单状态<select id="status" name="status">
+                <option value="">全部</option>
+                <option value="0">未确认</option>
+                <option value="1">已确认</option>
+                <option value="2">取消</option>
+                <option value="3">无效</option>
+                <option value="4">退订</option>
+            </select> 
+配送员<input type="text" id="sender" name="sender" style="width: 40pt" />
+	   蛋糕: <select id="goods_name" name="goods_name">
+            	<option value="">全部</option>
+                {html_options options=$goods}           
+            </select>  
+			磅重:<input type="text" id="pt" name="pt" style="width: 35pt;" />磅
+			生日牌:
+        	<select id="card_name" name="card_name">
+            	<option value="">--全部--</option>
+                <option value="无">无</option>
+                <option value="中文">中文</option>
+                <option value="英文">英文</option>
+                <option value="其它">其它</option>
+            </select>&nbsp;&nbsp;
+收货地址<input type="text" name="address" value="" style="width:80px"/><br />
+		   支付方式<select name="pay_name">
+					<option value=""></option>
+			        <option value="1">异地结款</option>
+					<option value="2">快钱银行</option>
+					<option value="3">支付宝</option>
+					<option value="4">货到付款</option>
+					<option value="7">银行汇款</option>
+					<option value="8">月结</option>
+					<option value="9">预付款</option>
+					<option value="10">其它</option>
+					<option value="11">K金兑礼</option>
+				</select>
+			付费方式<select name="pay_note">
+				  <option value=""></option>
+				  <option value="正常付费">正常付费</option>
+                  <option value="免费赠送">免费赠送</option>
+				  <option value="代金卡">代金卡</option>
+				  <option value="销售活动">销售活动</option>
+				  <option value="预付款">预付款</option>
+				  <option value="其他">其他</option>
+				</select>
+</p>
+</form>
+</fieldset>
+</div>
+<hr />
+<div style="clear:both;"></div>
+<div id="listDiv" style="overflow:scroll;float:left;">
+{/if}
+<table width="120%" STYLE="table-layout:fixed" cellspacing=1 cellpadding=1 border=0>
+    <tr class="bglimeimg">
+    	<td width="30">详情</td>
+		<td width=70>订单状态</td>
+		<td width=30>配印	</td>
+		<td width=30>生印	</td>
+		<td width=30>序号</td>
+		<td width=100>订单号</td>
+		<td width=120>送货时间</td>
+		<td width=350>送货地址</td>
+		<td width=100>订货人</td>
+		<td width=100>电话</td>
+		<td width=40>送货人</td>
+		<td width=70>外送电话</td>
+		<td width=60>配送站</td>
+		<td width=40>应收</td>
+		<td width=40>坐席</td>
+		<td width=120>下单时间</td>
+		<td width="30">详情</td>
+		</tr>
+		<!--{foreach from=$orders item=list}-->
+		<tr class="{cycle values='bgwhite','bggray'}" onMouseOver="this.style.backgroundColor='#FFCCCC'" onMouseOut="this.style.backgroundColor=''">
+				<td align=center width="30"><a href='order.php?act=detail&order_id={$list.order_id}' target="_blank">详情</a></td>
+				<td bgcolor=#FFFF66>{$list.orderstatus}</td>
+				<td align=center bgcolor=#FFFF66>{if $list.printtimes >1 }<font color=#FF0000>已打</font>{else}<font color=#33CC00>未打</font>{/if}</td>
+				<td align=center bgcolor=#FFFF66>{if $list.produceprint >1 }<font color=#FF0000>已打</font>{else}<font color=#33CC00>未打</font>{/if}</td>
+				<td align=center>{$list.i}</td>
+				<td>{$list.order_sn}</td>
+				<td>{$list.best_time}</td>
+				<td>{$list.address}</td>
+				<td>{if $list.ordertel}{$list.orderman}{else}{$list.consignee}{/if}</td>
+				<td>{if $list.ordertel}{$list.ordertel}{else}{$list.mobile}{/if}</td>
+				<td>{$list.employee_name}</td>
+				<td>{$list.mobile}</td>
+				<td>{$list.shipping_station_name}</td>
+				<td>{$list.amount}</td>
+				<td>{$list.kfgh|default:web}</td>
+				<td>{$list.add_time}</td>
+				<td align=center width="30" bgcolor=#FFFF66><a href='javascript:rewrite({$list.order_id});'>详情</a></td>
+		</tr>
+		<!--{/foreach}-->
+		<tr bgcolor=#FFFFFF><td colspan="8">{include file="page.htm"}
+		</td><td colspan="9"></td></tr>
+	</table>
+{if $full_page}
+</div>
+</body>
+<script language="javascript">
+listTable.recordCount = {$record_count};
+listTable.pageCount = {$page_count};
+
+{foreach from=$filter item=item key=key}
+listTable.filter.{$key} = '{$item}';
+{/foreach}
+{literal}
+
+function searchOrder()
+{
+        listTable.filter['order_sn']     = Utils.trim(document.forms['searchForm'].elements['order_sn'].value);
+        listTable.filter['sdate']        = Utils.trim(document.forms['searchForm'].elements['sdate'].value);
+        listTable.filter['edate']        = Utils.trim(document.forms['searchForm'].elements['edate'].value);
+        listTable.filter['sdatead']      = Utils.trim(document.forms['searchForm'].elements['sdatead'].value);
+        listTable.filter['edatead']      = Utils.trim(document.forms['searchForm'].elements['edatead'].value);
+        listTable.filter['orderman']     = Utils.trim(document.forms['searchForm'].elements['orderman'].value);
+        listTable.filter['ordertel']     = Utils.trim(document.forms['searchForm'].elements['tel'].value);
+        listTable.filter['consignee']    = Utils.trim(document.forms['searchForm'].elements['consignee'].value);
+        listTable.filter['tel2']         = Utils.trim(document.forms['searchForm'].elements['tel'].value);
+        listTable.filter['status']       = Utils.trim(document.forms['searchForm'].elements['status'].value);
+        listTable.filter['to_buyer']     = Utils.trim(document.forms['searchForm'].elements['to_buyer'].value);
+        listTable.filter['referer'] = Utils.trim(document.forms['searchForm'].elements['referer'].value);
+        listTable.filter['station']      = Utils.trim(document.forms['searchForm'].elements['station'].value);
+		listTable.filter['turn']         = Utils.trim(document.forms['searchForm'].elements['turn'].value);
+        listTable.filter['address']      = Utils.trim(document.forms['searchForm'].elements['address'].value); 
+        listTable.filter['pay_name']     = Utils.trim(document.forms['searchForm'].elements['pay_name'].value);
+		listTable.filter['scts']         = Utils.trim(document.forms['searchForm'].elements['scts'].value);
+		listTable.filter['wsts']         = Utils.trim(document.forms['searchForm'].elements['wsts'].value);
+		listTable.filter['sender']       = Utils.trim(document.forms['searchForm'].elements['sender'].value);
+        listTable.filter['page']         = 1;
+        listTable.loadList();
+}
+
+function show_div()
+{
+   document.getElementById('searchs').style.display = '';
+   document.getElementById('onbtn').style.display = 'none';
+   document.getElementById('offbtn').style.display = '';
+}
+function hide_div()
+{
+   document.getElementById('searchs').style.display = 'none';
+   document.getElementById('onbtn').style.display = '';
+   document.getElementById('offbtn').style.display = 'none';
+}
+</script>
+</html>
+{/if}

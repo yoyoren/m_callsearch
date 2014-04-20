@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>test</title>
+<?php echo $this->smarty_insert_scripts(array('files'=>'transport.js,common.js')); ?>
+<script src="js/jquery.js" language="javascript" ></script>
+</head>
+<style type="text/css">
+.dinput {height:18px; width:120px; line-height:18px;}
+.cinput {height:18px; width:120px; line-height:18px; border-bottom:none;}
+#select li{font-size:12px;}
+ul,li{padding:0px; margin:0px; list-style:none;}
+.select_li {background:#3300FF; color:#FFFFFF; list-style:none;}
+</style>
+<body>
+<form action="index.php?act=show" method="post">
+<div style=" position:relative;">
+<input name="addr" type="text" width="30" id='addr' class="dinput"  />
+   <div id="list" style="position:absolute; display:none; left:0px; top:22px; border:1px #999 solid; width:122px;line-height:18px;">
+       <ul  id="select" onmouseout="clear_select()">
+	   </ul>
+   </div>
+   <input type="submit" value="submit" />
+</div>
+</form>
+<script language="javascript">
+ var delayTimer='';
+ var key=0;
+ var move=0;
+ var old='';
+$(document).ready(
+  function() 
+  {  
+    $('#addr').keyup(function(e) 
+	{ 
+	  key=e.which;
+	  if ( delayTimer )  
+      window.clearTimeout( delayTimer );  
+      if(key==38||key==40)
+      smove(key); 
+      else	 
+      delayTimer = window.setTimeout( getResults, 200 );  
+	} );  
+  } 
+);  
+
+function getResults()
+{
+	move=0;
+	var val = $('#addr').val();
+	if (val.replace(/(^\s*)|(\s*$)/g, "") != '')
+	{
+      Ajax.call('index.php?act=get', 'key=' + encodeURIComponent(val), callResponse2, 'GET','JSON');
+	}
+	else
+	{
+	    document.getElementById('list').style.display = 'none';
+		document.getElementById('addr').className = 'dinput';	
+	}
+} 
+function callResponse2(result)
+{
+	var ul = $('#select');
+	ul.empty();			
+	document.getElementById('list').style.display = 'none';
+	document.getElementById('addr').className = 'dinput';
+	var i=result.length;
+	if(i==0) return;
+	document.getElementById('addr').className='cinput';
+	document.getElementById('list').style.display='';
+	for(j=0;j<i;j++)
+	{
+		var newli = '<li onmouseover="mouse_select(this)" onclick="tijiao(this)" value="'+j+'">'+result[j].name+'</li>';
+		ul.append(newli);
+	}
+}
+function callResponse(result)
+{
+	alert(result.length);
+	eval(result);
+	var ul=$('#select');
+	ul.empty();			
+	document.getElementById('list').style.display = 'none';
+	document.getElementById('addr').className = 'dinput';
+	var i=re.length;
+	if(i==0) return;
+	document.getElementById('addr').className='cinput';
+	document.getElementById('list').style.display='';
+	for(j=0;j<i;j++)
+	{
+		var newli = '<li onmouseover="mouse_select(this)" onclick="tijiao(this)" value="'+re[j]['key']+'">'+re[j]['value']+'</li>';
+		ul.append(newli);
+	}
+}
+function smove(k)
+{
+	var test=$('#addr');
+	if(move==0) old=test.val();
+	if(k==38) move--;
+	else move++;	
+	var li=document.getElementById('select').getElementsByTagName('li');
+	var l=li.length;
+	var f=move%(l+1);
+	var m=(f>0)?(f-1):(l+f);
+	if (f==0) test.val(old);
+	for(i=0;i<l;i++)
+	{
+	  if(i==m)
+	  { 
+	     li[i].className='select_li'; 
+		 test.val(li[i].innerHTML);
+	  }
+	  else
+	  {
+	     li[i].className='';
+	  }
+	}
+}	
+function mouse_select(obj)
+{
+	var p=obj.parentNode.getElementsByTagName('LI');
+	for(i=0;i<p.length;i++)
+	{
+		p[i].className='';
+	}
+    obj.className='select_li';
+}
+function clear_select()
+{
+	var zhu=document.getElementById('select').getElementsByTagName('li');
+	for(i=0;i<zhu.length;i++)
+	{
+		zhu[i].className='';
+	}
+}
+function tijiao(obj)
+{
+	$('#addr').val(obj.innerHTML);
+	$('#select').empty();			
+}
+</script>
+</body>
+</html>

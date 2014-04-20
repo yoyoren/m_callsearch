@@ -1,0 +1,63 @@
+	{if($_GET['id']=="1" ||$_GET['id']=="12")}
+	    $v = $_GET['id']== "1" ? 10 : 0;
+	    <input type="checkbox" value="现金" name="pay_note[]" checked>现金
+	    <input type="text" style="width:50px;" value="" name="way[]" class="fontred fontbig" /><br />
+        <input type='checkbox' value='POS机' name='pay_note[]' >POS机
+		<input type='text' style='width:50px;display:none' value='' name='way[]' class='fontred fontbig' /><br />
+	    <script type='text/javascript'>
+		$("#pay input[type='checkbox']").bind('click', function(){
+		$("#pay input[type='checkbox']").next().hide();
+		$("#pay input[type='checkbox']:checked").next().show();
+		$("#pay input[type='checkbox']:not(:checked)").next().val('');
+		$(this).next().focus();
+		if($("#pay input[type='checkbox']:checked").length==1) $("#pay input[type='checkbox']:checked").next().val(orderFee.unPayed);
+		});
+		</script>
+	
+	{else}
+	
+		<select name='pay_note' id='pay_note'>
+		<option value=''>请选择</option>
+		{foreach from=$pay_note item =val}
+		 <option value='{$val}'>{$val}</option>
+		{/foreach}
+		</select><span id='pay_msg'></span>
+		<script>
+		$("#pay_note").change(function(){
+		$('#pay_msg').html('');
+		if($(this).val()=='预付款'){
+		$('#pay_msg').append("可用余额:{$user['user_money']}");
+		if(parseFloat(orderFee.orderAmount)> {$user['user_money']}){ $(this).val(''); $('#pay_msg').append(' 余额不足');}
+		}
+		if($(this).val()=='月结'){
+		$current_month=date("Y-m",time());
+		$current_first_day=strtotime($current_month."-01 00:00:00");
+		$('#pay_msg').html("已月结金额:{$a}");
+		}
+		});
+		</script>
+	 {/if}
+	 
+	if($_GET['id']=="1" ||$_GET['id']=="4")
+	{
+	    $v = $_GET['id']== "1" ? 10 : 0;
+	}
+	else
+	{
+		$pay_note = get_pay_note($_GET['id']);
+
+		if ($_GET['id']!="2" && $_GET['id']!="3")
+		foreach($pay_note  as $k=>$val){
+			echo "<option value='{$val}'>{$val}</option>";
+		}
+		$uid=$_GET['uid'];
+		$user=user_info($uid);
+		$current_month=date("Y-m",time());
+		$current_first_day=strtotime($current_month."-01 00:00:00");
+		$sql="select sum(order_amount) from ecs_order_info where user_id={$uid} and pay_note='月结' and add_time between {$current_first_day} and ".time();
+		$a=$db->getOne($sql);
+		if(!$a) $a="0";
+
+	}
+	$smarty->assign('pay_id',$_GET['id']);
+    die($smarty->fetch('payment.htm'));

@@ -1,0 +1,24 @@
+<?php
+// mssql host
+$ms_db_host   = "localhost";
+
+// mssql name
+$ms_db_name   = "cake";
+
+// mssql username
+$ms_db_user   = "root";
+
+// mssql password
+$ms_db_pass   = "1230123";
+
+$timezone    = "PRC";
+
+$cookie_path    = "/";
+
+$cookie_domain    = "";
+
+$session = "1440";
+
+define('EC_CHARSET','utf-8');
+
+?>

@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/wlwendang/!svn/ver/37/templates
+END
+order_edit.html
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/wlwendang/!svn/ver/37/templates/order_edit.html
+END
+mem_edit.html
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/wlwendang/!svn/ver/25/templates/mem_edit.html
+END
+mem_add.html
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/wlwendang/!svn/ver/34/templates/mem_add.html
+END
+order_search_list.html
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/wlwendang/!svn/ver/25/templates/order_search_list.html
+END
+mem_merge.html
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/wlwendang/!svn/ver/25/templates/mem_merge.html
+END
+order_detail.html
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/wlwendang/!svn/ver/29/templates/order_detail.html
+END
+mem_detail.html
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/wlwendang/!svn/ver/37/templates/mem_detail.html
+END
+page.htm
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/wlwendang/!svn/ver/25/templates/page.htm
+END
+service.html
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/wlwendang/!svn/ver/25/templates/service.html
+END
+mem_query.html
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/wlwendang/!svn/ver/25/templates/mem_query.html
+END
+order_list.html
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/wlwendang/!svn/ver/30/templates/order_list.html
+END
+order_add.htm
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/wlwendang/!svn/ver/37/templates/order_add.htm
+END
+service_add.html
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/wlwendang/!svn/ver/25/templates/service_add.html
+END
+order_load.html
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/wlwendang/!svn/ver/25/templates/order_load.html
+END
+service_info.html
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/wlwendang/!svn/ver/25/templates/service_info.html
+END

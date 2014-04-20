@@ -1,0 +1,96 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<table width="100%" cellpadding="3" cellspacing="1">
+  <tr>
+    <td width="10%"><div align="left"><strong>下单客服</strong></div></td>
+    <td width="15%"><?php echo empty($this->_var['order']['kfgh']) ? 'web' : $this->_var['order']['kfgh']; ?></td>
+    <td width="10%"><div align="left"><strong></strong></div></td>
+    <td></td>
+    <td width="10%"><div align="left"><strong>订单号</strong></div></td>
+    <td width="15%"><?php echo $this->_var['order']['order_sn']; ?></td>
+    <td width="10%"><div align="left"><strong>订单状态</strong></div></td>
+    <td width="15%"><?php echo $this->_var['order']['status']; ?></td>
+  </tr>
+  <tr>
+    <td><div align="left"><strong>订购人</strong></div></td>
+    <td><?php echo $this->_var['order']['orderman']; ?></td>
+    <td><div align="left"><strong>下单时间</strong></div></td>
+    <td><?php echo $this->_var['order']['order_time']; ?></td>
+    <td><div align="order_time"><strong>支付方式</strong></div></td>
+    <td><?php echo $this->_var['order']['pay_name']; ?>:<?php echo $this->_var['order']['pay_note']; ?></td>
+    <td><div align="left"><strong>送货时间</strong></div></td>
+    <td><?php echo $this->_var['order']['best_time']; ?></td>
+  </tr>
+  <tr>
+    <td><div align="left"><strong>收货人</strong></div></td>
+    <td colspan="3"><?php echo htmlspecialchars($this->_var['order']['consignee']); ?></td>
+    <td><div align="left"><strong>送货地址</strong></div></td>
+    <td colspan="3">[<?php echo $this->_var['order']['region']; ?>] <?php echo htmlspecialchars($this->_var['order']['address']); ?></td>
+  </tr>
+  <tr>
+    <td><div align="left"><strong>结款地址</strong></div></td>
+    <td colspan="3"><?php echo htmlspecialchars($this->_var['order']['money_address']); ?></td>
+    <td><div align="left"><strong>批次信息</strong></div></td>
+    <td><?php echo $this->_var['dis']['shipping_timeplan_id']; ?></td>
+    <td><div align="left"><strong>站点包号</strong></div></td>
+    <td"><?php echo $this->_var['dis']['shipping_station_name']; ?>-<?php echo $this->_var['dis']['shipping_pack_no']; ?></td>
+  </tr>
+  <tr>
+    <td><div align="left"><strong>调度状态</strong></div></td>
+    <td><?php echo $this->_var['dis']['status_value']; ?></td>
+    <td><div align="left"><strong>调度时间</strong></div></td>
+    <td><?php echo $this->_var['dis']['operate_time']; ?></td>
+    <td><div align="left"><strong>商品信息</strong></div></td>
+    <td colspan="3"><?php echo $this->_var['order']['goods']; ?></td>
+  </tr>
+  <tr>
+    <td><div align="left"><strong>餐具数量</strong></div></td>
+    <td><?php echo $this->_var['order']['canju']; ?></td>
+    <td><div align="left"><strong>蜡烛数量</strong></div></td>
+    <td><?php echo $this->_var['order']['candle']; ?></td>
+    <td><div align="left"><strong>生产提示</strong></div></td>
+    <td><?php echo $this->_var['order']['scts']; ?></td>
+    <td><div align="left"><strong>外送提示</strong></div></td>
+    <td><?php echo $this->_var['order']['wsts']; ?></td>
+  </tr>
+  <tr>
+    <td><div align="left"><strong>̧发票抬头</strong></div></td>
+    <td><?php echo $this->_var['order']['inv_payee']; ?></td>
+    <td><div align="left"><strong>发票内容</strong></div></td>
+    <td><?php echo $this->_var['order']['inv_content']; ?></td>
+    <td><div align="left"><strong>客户留言</strong></div></td>
+    <td colspan="3"><?php echo $this->_var['order']['postscript']; ?></td>
+  </tr>
+  <tr>
+    <td><div align="left"><strong>生日牌</strong></div></td>
+    <td><?php echo $this->_var['order']['card_name']; ?></td>
+    <td><div align="left"><strong>内容</strong></div></td>
+    <td><?php echo $this->_var['order']['card_message']; ?></td>
+    <td><div align="left"><strong>客服备注</strong></div></td>
+    <td colspan="3"><?php echo $this->_var['order']['to_buyer']; ?></td>
+  </tr>
+</table>
+<table cellpadding="3" width="100%" cellspacing="1">
+  <tr class="bggray">
+    <td colspan="5" align="left">操作日志</td>
+  </tr>
+  <tr class="bglimeimg">
+    <td>޸修改内容</td>
+    <td>޸修改时间</td>
+    <td>完成时间</td>
+    <td>操作客服</td>
+    <td>操作备注</td>
+  </tr>
+  <?php $_from = $this->_var['action']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'list');if (count($_from)):
+    foreach ($_from AS $this->_var['list']):
+?>
+  <tr>
+    <td><div align="center"><?php echo $this->_var['list']['back_content']; ?></div></td>
+    <td><div align="center"><?php echo $this->_var['list']['actime']; ?></div></td>
+    <td><div align="center"><?php echo $this->_var['list']['done_time']; ?></div></td>
+    <td><div align="center"><?php echo $this->_var['list']['admin']; ?></div></td>
+    <td><div align="center"><?php echo $this->_var['list']['note']; ?></div></td>
+  </tr>
+  <?php endforeach; else: ?>
+  <tr><td colspan="5">无改单日志</td></tr>
+  <?php endif; unset($_from); ?><?php $this->pop_vars();; ?>
+</table>

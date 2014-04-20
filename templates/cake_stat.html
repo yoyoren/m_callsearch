@@ -1,0 +1,96 @@
+{if $full_page}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>订单搜索</title>
+<style>
+body{color:#CC0033;font-size:12px;}
+td{font-size:12px;color:#000000}
+input{border:#CCCCCC 1px solid;}
+a:hover{color:#CC0000;}
+a:visited{color:#800080;text-decoration:underline;}
+.top{background-color:#FFFFCC;height:35px;}
+.main{border:#CCCCCC 0px solid;height:350px;}
+.resizeDivClass{position:relative;background-color:red;width:2px;z-index:1;left:expression(this.parentElement.offsetWidth-1);cursor:e-resize;}
+</style>
+</head>
+{insert_scripts files="transport.js,common.js,utils.js,listtable.js,datepicker/WdatePicker.js"}
+<div class="form-div">
+  <form action="javascript:searchOrder()" name="searchForm">
+    <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
+    日期<input name="bdate" type="text" value="{$filter.bdate}" onClick="javascript:WdatePicker()" readonly="true" style="width:70px;">&nbsp;&nbsp;
+	城市<select name="city" id="city">
+	   <option value="441">北京</option>
+	  
+	</select>
+	批次<select name="turn" id="turn"><option value="">全部</option>
+	   <option value="1">第1批</option>
+	   <option value="2">第2批</option>
+	   <option value="3">第3批</option>
+	   <option value="4">第4批</option>
+	   <option value="5">第5批</option>
+	</select>
+	状态<select name="otatus" id="otatus"><option value="1">确认</option>
+	   <option value="0">未确认</option>
+	</select>
+    <input type="submit" value="搜索" class="button" class="button" />
+  </form>
+</div>
+<!-- 订单列表 -->
+<div id="listDiv" class="main">
+{/if}
+  <table id=theObjTable STYLE="table-layout:fixed" cellspacing=1 cellpadding=1 bgcolor=#bab196 border=0>
+	<tr bgcolor=#CCCCFF>
+		<th>蛋糕</th>
+		<th>规格</th>
+		<th>数量</th>
+		<th>订单量</th>
+	</tr>   
+	<tr>
+	  <td>小计</td>
+	  <td align="right">{$list.totalw}磅</td>
+	  <td align="right">{$list.totalc}个</td>
+	  <td align="right">{$list.totalo}个</td>
+	</tr>
+   {foreach from=$list.ch item=clist}
+	<tr bgcolor=#FFFFFF onMouseOver="this.style.backgroundColor='#FFCCCC'" onMouseOut="this.style.backgroundColor=''">
+	  <td width="50px">{$clist.goods_name}</td>
+	  <td align="right">{$clist.goods_attr}磅</td>
+	  <td align="right">{$clist.goods_sum}</td>
+	  <td align="right">{$clist.order_sum}</td>
+   </tr>
+   {/foreach}
+   <!--<tr>
+	  <td>小计</td>
+	  <td align="right">{$list.totalw}磅</td>
+	  <td align="right">{$list.totalc}个</td>
+	  <td align="right">{$list.totalo}个</td>
+	</tr>-->
+	<tr>
+		<td colspan="8" align="left" style="font-size:16px; margin-right:50px;"><br />本处只提供即时的当日及今日以后的数据，如要查询日前数据请用京津生产统计功能</td>
+	</tr>
+</table>
+{if $full_page}
+</div>
+<script language="JavaScript">
+{literal}
+{foreach from=$filter item=item key=key}
+listTable.filter.{$key} = '{$item}';
+{/foreach}
+/**
+* 搜索订单
+*/
+function searchOrder()
+{
+		listTable.filter['bdate']   = Utils.trim(document.forms['searchForm'].elements['bdate'].value);
+		listTable.filter['turn']    = Utils.trim(document.forms['searchForm'].elements['turn'].value);
+		listTable.filter['city']    = Utils.trim(document.forms['searchForm'].elements['city'].value);
+		listTable.filter['otatus']  = Utils.trim(document.forms['searchForm'].elements['otatus'].value);
+        listTable.loadList();
+}
+</script>
+{/literal}
+
+{include file="pagefooter.htm"}
+{/if}

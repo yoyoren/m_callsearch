@@ -1,0 +1,3 @@
+<div>姓名:<?php echo $this->_var['user']['3']; ?>&nbsp;联系电话:<?php echo $this->_var['user']['29']; ?>/<?php echo $this->_var['user']['28']; ?>&nbsp;&nbsp;积分:<?php echo $this->_var['user']['11']; ?><a id="viewuserinfo" href="" title="用户信息" ><img src='images/gif-button.gif' /></a>
+        <a id="viewuserhis" href="" title="历史订单" ><img src='images/gif-button_02.gif' /></a> 
+        <a id="Viewstock" href="" title="库存查看"><img src='images/gif-button_03.gif' /></a></div>

@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+body{color:#CC0033;font-size:12px;}
+td{font-size:12px;}
+input{border:#CCCCCC 1px solid;}
+.top{background-color:#FFFFCC;line-height:20px;margin-top:2px;}
+.main{border:#CCCCCC 1px solid;height:243px;}
+</style>
+</head>
+<body class="top">
+{insert_scripts files="datepicker/WdatePicker.js"}
+<div class="main">
+	<table cellspacing=2 cellpadding=2 border=0>
+	<form action="order_search.php?act=list" method="post" target="list">
+		<tr>
+			<td>下单时间：</td>
+			<td colspan=3>
+				<input type="checkbox" onpropertychange="for(i=0;i<T1.length;i++){with(T1[i]){disabled=!this.checked,style.background=!this.checked?'#ececec':'#ffffff'}}" checked>
+				<input id="T1" name="sdatead" type="text" readonly="true" onFocus="javascript:WdatePicker()" />　至　
+				<input id="T1" name="edatead" type="text" readonly="true" onFocus="javascript:WdatePicker()" />
+			</td>
+			<td colspan=2>
+				<input type="reset" value="重　　置">　
+				<input type="submit" name="submit" value="开始搜索">	操作员：{$admin}
+			</td>
+		</tr>
+		<tr>
+			<td>送货时间：</td>
+			<td colspan=3>
+				<input type="checkbox" onpropertychange="for(i=0;i<T2.length;i++){with(T2[i]){disabled=!this.checked,style.background=!this.checked?'#ececec':'#ffffff'}}" checked>
+				<input id="T2" name="sdate" type="text" readonly="true" onFocus="javascript:WdatePicker()" />　至　
+				<input id="T2" name="edate" type="text" readonly="true" onFocus="javascript:WdatePicker()" />
+			</td>
+		</tr>
+		<tr>
+			<td>批次：</td>
+			<td colspan=3>
+				<select name="pici">
+				   <option value="">全部</option>
+				   <option value="1">第一批</option>
+				   <option value="2">第二批</option>
+				   <option value="3">第三批</option>
+				   <option value="4">第四批</option>
+				  </select>
+			</td>
+			<td align=right>流水号：</td>
+			<td><input type="text" name="print_sn" size="14">城市：<select name="city"><option value="">沪杭</option>
+			<option value="442">上海</option>
+			<option value="440">杭州</option>
+			<option value="444">苏州</option></select></td>
+		</tr>
+		<tr>
+			<td>坐　　席：</td>
+			<td><input type="text" name="kfgh" size="6" />
+			</td>
+			<td>订 单 号：</td>
+			<td><input type="text" name="order_sn" size="14"></td>
+			<td>积分卡号：</td>
+			<td><input type="text" name="pointcard" size="14"></td>
+		</tr>
+		<tr>
+			<td>订 货 人：</td>
+			<td><input type="text" name="orderman" size="14"></td>
+			<td>订货人电话：</td>
+			<td><input type="text" name="ordertel" size="14"></td>
+			<td>送货地址：</td>
+			<td><input type="text" name="address" size="14"></td>
+		</tr>
+		<tr>
+			<td>收 货 人：</td>
+			<td><input type="text" name="consignee" size="14"></td>
+			<td>收货人电话：</td>
+			<td><input type="text" name="tel" size="14"></td>
+			<td>结款地址：</td>
+			<td><input type="text" name="recive_address" size="14"></td>
+		</tr>
+		<tr>
+			<td>特殊情况：</td>
+			<td><input type="text" name="to_buyer" size="14"></td>
+			<td>生产提示：</td>
+			<td><input type="text" name="scts" size="14"></td>
+			<td>外送提示：</td>
+			<td><input type="text" name="wsts" size="14"></td>
+		</tr>
+		<tr>
+			<td>订单状态：</td>
+			<td>
+				<select name="status">
+					<option value=""></option>
+					<option value=0>未确认</option>
+					<option value=1>已确认</option>
+					<option value=2>已取消</option>
+					<option value=3>无效</option>
+					<option value=4>退货</option>
+				</select>
+				<select name="pay_status">
+					<option value=""></option>
+					<option value=0>未付款</option>
+					<option value=1>付款中</option>
+					<option value=2>已付款</option>
+				</select>
+			</td>
+			<td>支付方式：</td>
+			<td>
+				<select name="pay_name">
+					<option value=""></option>
+			        <option value="1">异地结款</option>
+					<option value="3">快钱银行</option>
+					<option value="2">支付宝</option>
+					<option value="4">货到付款</option>
+					<option value="5">免费</option>
+				</select>
+			</td>
+			<td>收费方式：</td>
+			<td>
+				<select name="pay_note">
+				  <option value=""></option>
+				  <option value="正常付费">正常付费</option>
+                  <option value="免费赠送">免费赠送</option>
+				  <option value="代金卡">代金卡</option>
+				  <option value="销售活动">销售活动</option>
+				  <option value="预付款">预付款</option>
+				  <option value="其他">其他</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>配送站：</td>
+			<td><select name="station">
+			  <option value="">全部</option>
+		      <option value="洋桥">洋桥</option>
+			  <option value="台湖">台湖</option>
+			  <option value="中关村">中关村</option>
+			  <option value="大郊亭">大郊亭</option>
+			  <option value="亚运村">亚运村</option>
+			  <option value="航天桥">航天桥</option>
+			  <option value="国美">国美</option> 
+			  <option value="陶然亭">陶然亭</option>	  
+			</select>
+
+			</td>
+			<td>是否打印：</td>
+			<td>
+				<select name="prints">
+					<option value=""></option>
+					<option value="0">未打印</option>
+					<option value="1">已打印</option>
+				</select>
+			</td>
+			<td>送 货 人：</td>
+			<td><input type="text" name="psy" maxlength="20" size="10" />
+			</td>
+		</tr>
+	</form>
+		</table>
+</div>
+</body>
+</html>
