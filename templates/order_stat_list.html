@@ -99,7 +99,7 @@ obj.mouseDownX=0;
 		</tr>
 		<!--{foreach from=$orders item=list}-->
 			<tr bgcolor=#FFFFFF onMouseOver="this.style.backgroundColor='#FFCCCC'" onMouseOut="this.style.backgroundColor=''">
-				<td align=center width="30" bgcolor=#FFFF66><a href='/mescall/order.php?agentuid={$agentuid}&act=detail&order_id={$list.order_id}' target='_blank'>详情</a></td>
+				<td align=center width="30" bgcolor=#FFFF66><a href='/order.php?agentuid={$agentuid}&act=detail&order_id={$list.order_id}' target='_blank'>详情</a></td>
 				<td bgcolor=#FFFF66>{$list.orderstatus}</td>
 				<td align=center bgcolor=#FFFF66>{if $list.printtimes >'0' }<font color=#FF0000>已打</font>{else}<font color=#33CC00>未打</font>{/if}</td>
 				<td align=center bgcolor=#FFFF66>{if $list.produceprint >'0' }<font color=#FF0000>已打</font>{else}<font color=#33CC00>未打</font>{/if}</td>
@@ -112,7 +112,7 @@ obj.mouseDownX=0;
 				<td>{$list.order_amount}</td>
 				<td>{$list.remark|default:9999}</td>
 				<td>{$list.add_time}</td>
-				<td align=center width="30" bgcolor=#FFFF66><a href='http://192.168.0.199:8080/mescall/order.php?agentuid={$agentuid}&act=show&order_id={$list.order_id}' target="_blank">详情</a></td>
+				<td align=center width="30" bgcolor=#FFFF66><a href='/order.php?agentuid={$agentuid}&act=show&order_id={$list.order_id}' target="_blank">详情</a></td>
 			</tr>
            <!--{/foreach}-->
 	</table>
