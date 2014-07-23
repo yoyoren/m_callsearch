@@ -101,7 +101,7 @@ obj.mouseDownX=0;
     foreach ($_from AS $this->_var['list']):
 ?>
 			<tr bgcolor=#FFFFFF onMouseOver="this.style.backgroundColor='#FFCCCC'" onMouseOut="this.style.backgroundColor=''">
-				<td align=center width="30" bgcolor=#FFFF66><a href='http://192.168.0.199:8080/mescall/order.php?agentuid=<?php echo $this->_var['agentuid']; ?>&act=detail&order_id=<?php echo $this->_var['list']['order_id']; ?>' target='_blank'>详情</a></td>
+				<td align=center width="30" bgcolor=#FFFF66><a href='/order.php?agentuid=<?php echo $this->_var['agentuid']; ?>&act=detail&order_id=<?php echo $this->_var['list']['order_id']; ?>' target='_blank'>详情</a></td>
 				<td bgcolor=#FFFF66><?php echo $this->_var['list']['orderstatus']; ?></td>
 				<td align=center bgcolor=#FFFF66><?php if ($this->_var['list']['printtimes'] > '0'): ?><font color=#FF0000>已打</font><?php else: ?><font color=#33CC00>未打</font><?php endif; ?></td>
 				<td align=center bgcolor=#FFFF66><?php if ($this->_var['list']['produceprint'] > '0'): ?><font color=#FF0000>已打</font><?php else: ?><font color=#33CC00>未打</font><?php endif; ?></td>
@@ -114,7 +114,7 @@ obj.mouseDownX=0;
 				<td><?php echo $this->_var['list']['order_amount']; ?></td>
 				<td><?php echo empty($this->_var['list']['remark']) ? '9999' : $this->_var['list']['remark']; ?></td>
 				<td><?php echo $this->_var['list']['add_time']; ?></td>
-				<td align=center width="30" bgcolor=#FFFF66><a href='http://192.168.0.199:8080/mescall/order.php?agentuid=<?php echo $this->_var['agentuid']; ?>&act=show&order_id=<?php echo $this->_var['list']['order_id']; ?>' target="_blank">详情</a></td>
+				<td align=center width="30" bgcolor=#FFFF66><a href='/order.php?agentuid=<?php echo $this->_var['agentuid']; ?>&act=show&order_id=<?php echo $this->_var['list']['order_id']; ?>' target="_blank">详情</a></td>
 			</tr>
            <?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
 	</table>
